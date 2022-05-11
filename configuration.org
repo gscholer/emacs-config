@@ -142,7 +142,7 @@ For CircleCI integration
 
 * Set personal information
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Adrien Brochard"
+  (setq user-full-name "Will Hunt"
         calendar-latitude 40.7
         calendar-longitude -73.98
         calendar-location-name "New York, NY")
@@ -481,6 +481,21 @@ Useful if file changed on disk
 #+END_SRC
 
 
+* Load Cool Theme
+#+BEGIN_SRC emacs-lisp
+  (use-package dracula-theme
+    :config (load-theme 'dracula t)
+    (set-face-background 'mode-line "#510370")
+    (set-face-background 'mode-line-inactive "#212020"))
+
+  (custom-set-faces
+   '(mode-line ((t (:background "#510370" :foreground "white")))))
+
+  (set-face-attribute
+   'helm-selection nil
+   :background "#510370" :foreground "white")
+#+END_SRC
+
 * Org-mode
 ** Set environment
 #+BEGIN_SRC emacs-lisp
@@ -550,6 +565,10 @@ Useful if file changed on disk
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'text-mode-hook 'flyspell-mode)
 #+END_SRC
+** Enable =CDLaTex=
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook #'turn-on-org-cdlatex)
+#+end_src
 ** Setup =org-babel=
    Get additional languages?
    Load them all
@@ -562,9 +581,9 @@ Useful if file changed on disk
            (python . t)
            (gnuplot . t)
            (shell . t)
-           (ledger . t)
            (org . t)
            (latex . t)
+           (sql . t)
            (haskell . t))))
 #+END_SRC
 ** Enable =org-bullets=
@@ -707,21 +726,6 @@ Inspired from [[https://github.com/technomancy/better-defaults]]
   (setq mac-command-modifier 'control)
 #+end_src
 
-
-* Load Cool Theme
-#+BEGIN_SRC emacs-lisp
-  (use-package dracula-theme
-    :config (load-theme 'dracula t)
-    (set-face-background 'mode-line "#510370")
-    (set-face-background 'mode-line-inactive "#212020"))
-
-  (custom-set-faces
-   '(mode-line ((t (:background "#510370" :foreground "white")))))
-
-  (set-face-attribute
-   'helm-selection nil
-   :background "#510370" :foreground "white")
-#+END_SRC
 
 * Customize the mode-line
 ** A small trim of the original
@@ -1231,8 +1235,8 @@ But only for emacs-lisp
 * MySQL
 ** Always make MySQL the default product
 #+BEGIN_SRC emacs-lisp
-(require 'sql)
-(sql-set-product "mysql")
+  (require 'sql)
+  ;; (sql-set-product "mysql")
 #+END_SRC
 ** Enable =sqlup-mode=
 #+BEGIN_SRC emacs-lisp
@@ -1242,10 +1246,11 @@ But only for emacs-lisp
 ** Enable =mysql-to-org=
 I love this package
 #+BEGIN_SRC emacs-lisp
-(use-package mysql-to-org
-  :config
-  (add-hook 'sql-mode-hook 'mysql-to-org-mode))
+  ;; (use-package mysql-to-org
+  ;;   :config
+  ;;   (add-hook 'sql-mode-hook 'mysql-to-org-mode))
 #+END_SRC
+* PostgreSQL
 * PHP
 ** Enable =php-mode=
 And a bunch of hooks with it
@@ -1276,8 +1281,8 @@ And set PSR-2 as coding style
 #+END_SRC
 ** Enable =phpcbf=
 #+BEGIN_SRC emacs-lisp
-  (use-package phpcbf
-    :config (setq phpcbf-standard "PSR2"))
+  ;; (use-package phpcbf
+  ;;   :config (setq phpcbf-standard "PSR2"))
 #+END_SRC
 
 * Web
@@ -1787,6 +1792,36 @@ Great package to control multiple services.
     :stop-signal 'sigterm
     :kill-process-buffer-on-stop t)
 #+end_src
+
+* TeX
+#+begin_src emacs-lisp
+  (use-package tex
+    :ensure auctex)
+#+end_src
+
+* R
+#+begin_src emacs-lisp
+  (use-package ess)
+#+end_src
+
+* MATLAB
+#+begin_src emacs-lisp
+    (use-package matlab-mode
+      :diminish matlab
+      :ensure t)
+#+end_src
+
+* Gnuplot
+#+begin_src emacs-lisp
+  (use-package gnuplot-mode)
+  (use-package gnuplot)
+#+end_src
+
+* IPynb
+#+begin_src emacs-lisp
+;  (use-package ox-ipynb)
+#+end_src
+
 * Extra Packages
 No need to configure, just handy to have.
 #+BEGIN_SRC emacs-lisp
